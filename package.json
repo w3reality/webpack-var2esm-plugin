@@ -1,0 +1,32 @@
+{
+    "name": "webpack-var2esm-plugin",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+        "dist": "npm run build && rm -rf ./dist && cp -r ./lib ./dist",
+        "build": "webpack --env dev && webpack --env build && npm run test",
+        "dev": "webpack --progress --colors --watch --env dev",
+        "test": "mocha --require babel-core/register --colors ./test/*.spec.js",
+        "test:watch": "mocha --require babel-core/register --colors -w ./test/*.spec.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/w3reality/webpack-var2esm-plugin.git"
+    },
+    "keywords": [
+        "webpack",
+        "esm",
+        "plugin"
+    ],
+    "author": "j-devel",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/w3reality/webpack-var2esm-plugin/issues"
+    },
+    "homepage": "https://github.com/w3reality/webpack-var2esm-plugin",
+    "dependencies": {
+        "babel-preset-env": "^1.7.0"
+    },
+    "devDependencies": {}
+}
