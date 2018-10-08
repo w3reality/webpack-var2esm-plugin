@@ -3,6 +3,7 @@ class Var2EsmPlugin {
     constructor(libraryObjName, outputFile, isCompat=true) {
         this.libraryObjName = libraryObjName;
         this.outputFile = outputFile;
+        this.isCompat = isCompat;
     }
     apply(compiler) {
         compiler.hooks.emit.tapAsync('Var2EsmPlugin', (compilation, callback) => {
@@ -23,7 +24,7 @@ class Var2EsmPlugin {
             //   node_modules/three/build/three.js
             let src = compilation.assets[this.outputFile].source();
             // console.log('src:', src); // `var ${this.libraryObjName} = ...`
-            let srcNew = isCompat ? `
+            let srcNew = this.isCompat ? `
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :

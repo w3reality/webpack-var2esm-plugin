@@ -1,6 +1,6 @@
 {
     "name": "webpack-var2esm-plugin",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Webpack (>=4) plugin that transpiles var module into ES module",
     "main": "src/index.js",
     "scripts": {
