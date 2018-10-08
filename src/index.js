@@ -22,16 +22,24 @@ class Var2EsmPlugin {
             //   https://github.com/riot/riot/blob/master/riot.js
             //   node_modules/three/build/three.js
             let asset = compilation.assets[this.outputFile];
-            asset._value = `
+            // console.log('asset.source():', asset.source());
+            let srcNew = `
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (factory((global.${this.libraryObjName} = {})));
 }(this, (function (exports) { 'use strict';
-    ${asset._value}
+    ${asset.source()}
     exports.${this.libraryObjName} = ${this.libraryObjName};
     Object.defineProperty(exports, '__esModule', { value: true });
 })));`;
+
+            // https://github.com/webpack/docs/wiki/how-to-write-a-plugin
+            // Insert this list into the Webpack build as a new file asset:
+            compilation.assets[this.outputFile] = {
+                source: () => srcNew,
+                size: () => srcNew.length,
+            };
 
             callback();
         });
